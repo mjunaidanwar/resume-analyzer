@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "VjH2gMIJmeTFJQZvl6oVccQNAh7MBVugoqR3EW8sEd8=",
+  "Source": "ResumeAnalyzerAPI",
+  "BasePath": "_content/ResumeAnalyzerAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
