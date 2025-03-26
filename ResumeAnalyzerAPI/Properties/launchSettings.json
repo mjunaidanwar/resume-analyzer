@@ -17,7 +17,7 @@
       "applicationUrl": "http://localhost:5267",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "OPENAI_API_KEY": "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",
+        "OPENAI_API_KEY": "your-key",
         "AZUREAI_API_KEY": "your-key"
       
       }
@@ -30,7 +30,7 @@
       "applicationUrl": "https://localhost:7159;http://localhost:5267",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "OPENAI_API_KEY": "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",
+        "OPENAI_API_KEY": "your-key",
         "AZUREAI_API_KEY": "your-key"
       }
     },
