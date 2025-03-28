@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using ResumeAnalyzerAPI.Entities;
 using ResumeAnalyzerAPI.Models;
 using ResumeAnalyzerAPI.Services;
 using ResumeAnalyzerAPI.Utils;
@@ -32,6 +33,18 @@ namespace ResumeAnalyzerAPI.Controllers
             {
                 return BadRequest(new { Error = "Failed to parse response", RawResponse = aiResult });
             }
+        }
+
+        [HttpGet("history")]
+        public async Task<ResumeAnalysisHistory> GetResumeAnalysisHistoryAsync(int id)
+        {
+            return await _service.GetResumeAnalysisHistoryAsync(id);
+        }
+
+        [HttpGet("history/{id}")]
+        public async Task<IEnumerable<ResumeAnalysisHistory>> GetResumeAnalysisHistoryAsync()
+        {
+            return await _service.GetResumeAnalysisHistoriesAsync();
         }
 
         [HttpPost("test")]

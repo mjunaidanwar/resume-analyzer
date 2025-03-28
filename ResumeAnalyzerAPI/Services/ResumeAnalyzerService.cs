@@ -47,5 +47,15 @@ namespace ResumeAnalyzerAPI.Services
             await _repository.AddAsync(history);
             await _repository.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<ResumeAnalysisHistory>> GetResumeAnalysisHistoriesAsync()
+        {
+            return await _repository.GetAllAsync();
+        }
+
+        public async Task<ResumeAnalysisHistory> GetResumeAnalysisHistoryAsync(int historyId)
+        {
+            return await _repository.GetByIdAsync(historyId);
+        }
     }
 }
