@@ -25,6 +25,7 @@ namespace ResumeAnalyzerAPI.Controllers
             try
             {
                 var response = JsonConvert.DeserializeObject<ResumeAnalysisResponse>(aiResult);
+                await _service.SaveResponseHistoryAsync(response);
                 return Ok(response);
             }
             catch (JsonException)

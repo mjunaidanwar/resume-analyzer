@@ -1,7 +1,5 @@
-using System.Text;
 using OpenAI;
 using OpenAI.Chat;
-using OpenAI.Files;
 
 namespace ResumeAnalyzerAPI.AIAgents
 {
@@ -9,14 +7,12 @@ namespace ResumeAnalyzerAPI.AIAgents
     {
         private readonly ChatClient _chatClient;
         private readonly OpenAIClient _openAIClient;
-        private readonly OpenAIFileClient _fileClient;
         public OpenAIAgent(IConfiguration configuration)
         {
             var model = configuration["OpenAI:Model"];
             string apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
             _openAIClient = new OpenAIClient(apiKey);
             _chatClient = _openAIClient.GetChatClient(model);
-            _fileClient = _openAIClient.GetOpenAIFileClient();
         }
 
         public async Task<string> TestConnectionAsync()
@@ -31,6 +27,12 @@ namespace ResumeAnalyzerAPI.AIAgents
             return $"{completion.Content[0].Text}";
         }
 
+        /// <summary>
+        /// Method to analyze resume.
+        /// </summary>
+        /// <param name="resumeText">Parsed resume text</param>
+        /// <param name="jobDescription">Parsed Job Description</param>
+        /// <returns>structured string containing the analyzed resume result</returns>
         public async Task<string> AnalyzeResumeAsync(string resumeText, string jobDescription)
         {
             string prompt = $@"Analyze this resume text:
@@ -55,23 +57,6 @@ namespace ResumeAnalyzerAPI.AIAgents
                 ]);
 
             return completion.Content[0].Text;
-        }
-
-        /// <summary>
-        /// Future story: Function to store Resume in OpenAI.
-        /// </summary>
-        /// <param name="resumeText"></param>
-        /// <returns>File ID</returns>
-        public async Task<string> StoreResumeAsync(string resumeText)
-        {
-            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(resumeText)))
-            {
-                var fileResponse = await _fileClient.UploadFileAsync(
-                    stream, 
-                    "resume-junaid", 
-                    FileUploadPurpose.FineTune);
-                return fileResponse.Value.Id;
-            }
         }
     }
 }

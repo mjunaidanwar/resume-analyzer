@@ -1,6 +1,7 @@
 using Azure;
 using Azure.AI.OpenAI;
 using OpenAI.Chat;
+using OpenAI.Files;
 
 namespace ResumeAnalyzerAPI.AIAgents
 {
