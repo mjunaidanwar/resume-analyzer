@@ -18,4 +18,13 @@ export class ResumeAnalyzerService {
     const response = await axios.post(`${this.apiUrl}/analyze`, formData);
     return response.data;
   }
+  async getAnalysisHistory() {
+    const response = await axios.get(`${this.apiUrl}/history`);
+    return response.data;
+  }
+  
+  async getAnalysisById(id: number) {
+    const response = await axios.get(`${this.apiUrl}/history/${id}`);
+    return response.data;
+  }
 }

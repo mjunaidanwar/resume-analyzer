@@ -1,0 +1,28 @@
+<div class="bg-gray-100 dark:bg-gray-800 h-screen overflow-auto shadow-inner rounded-md">
+  <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-700 mt-10">
+  <h2 class="text-base font-medium text-gray-700 dark:text-gray-200">Analysis History</h2>
+</div>
+
+  <ul class="py-1">
+    <li 
+      *ngFor="let item of history"
+      (click)="selectAnalysis(item.id)"
+      class="cursor-pointer px-4 py-2.5 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center"
+      [class.bg-gray-200]="selectedAnalysisId === item.id"
+      [class.dark:bg-gray-700]="selectedAnalysisId === item.id"
+      [class.border-l-2]="selectedAnalysisId === item.id"
+      [class.border-gray-500]="selectedAnalysisId === item.id"
+    >
+      <div class="flex flex-col">
+        <span class="text-sm text-gray-700 dark:text-gray-200">{{ item.companyName || (item.createdAt | date:'MMM d, y, h:mm:ss a') }}</span>
+      </div>
+    </li>
+  </ul>
+
+  <div *ngIf="history.length === 0" class="px-4 py-8 text-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-300 dark:text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+    </svg>
+    <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">No analysis history yet</p>
+  </div>
+</div>

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ResumeAnalyzerAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+14e1822b4900407b00fd33cd46acb481c9b368f5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+20a7d7cabaabd73abba3fb737f0d607de716308e")]
 [assembly: System.Reflection.AssemblyProductAttribute("ResumeAnalyzerAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ResumeAnalyzerAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AnalysisResultComponent } from '../analysis-result/analysis-result.component';
+import { AnalysisHistoryComponent } from '../analysis-history/analysis-history.component';
 import { ResumeAnalyzerService } from '../../services/resume-analyzer.service';
 
 @Component({
@@ -10,7 +11,8 @@ import { ResumeAnalyzerService } from '../../services/resume-analyzer.service';
   imports: [
     CommonModule, 
     FormsModule, 
-    AnalysisResultComponent
+    AnalysisResultComponent,
+    AnalysisHistoryComponent
   ],
   templateUrl: './resume-upload.component.html'
 })
@@ -21,6 +23,7 @@ export class ResumeUploadComponent {
   loading = false;
   selectedFileName: string = '';
   isDragging = false;
+  sidebarOpen = true;
 
   constructor(private analyzerService: ResumeAnalyzerService) { }
 
@@ -86,6 +89,12 @@ export class ResumeUploadComponent {
     } finally {
       this.loading = false;
     }
+  }
+
+  async loadAnalysisFromHistory(id: number) {
+    this.loading = true;
+    this.analysisResult = await this.analyzerService.getAnalysisById(id);
+    this.loading = false;
   }
 
   // Optional: Method to clear the form

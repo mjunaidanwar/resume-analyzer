@@ -11,7 +11,8 @@ namespace ResumeAnalyzerAPI.AIAgents
         {
             var model = configuration["OpenAI:Model"];
             string apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
-            _openAIClient = new OpenAIClient(apiKey);
+            //_openAIClient = new OpenAIClient(apiKey);
+            _openAIClient = new OpenAIClient("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");
             _chatClient = _openAIClient.GetChatClient(model);
         }
 

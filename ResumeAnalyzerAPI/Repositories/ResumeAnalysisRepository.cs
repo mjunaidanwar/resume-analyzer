@@ -20,12 +20,29 @@ namespace ResumeAnalyzerAPI.Repositories
 
         public async Task<IEnumerable<ResumeAnalysisHistory>> GetAllAsync()
         {
-            return await _context.ResumeAnalysisHistories.ToListAsync();
+            return await _context.ResumeAnalysisHistories
+                         .OrderByDescending(r => r.CreatedAt)
+                         .ToListAsync();
         }
 
         public async Task<ResumeAnalysisHistory> GetByIdAsync(int id)
         {
             return await _context.ResumeAnalysisHistories.FindAsync(id);
+        }
+
+        public async Task<bool> UpdateAsync(ResumeAnalysisHistory updatedAnalysis)
+        {
+            var existingAnalysis = await _context.ResumeAnalysisHistories.FindAsync(updatedAnalysis.Id);
+
+            if (existingAnalysis == null)
+                return false;
+
+            existingAnalysis.CompanyName = updatedAnalysis.CompanyName;
+
+            _context.ResumeAnalysisHistories.Update(existingAnalysis);
+            await _context.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task SaveChangesAsync()

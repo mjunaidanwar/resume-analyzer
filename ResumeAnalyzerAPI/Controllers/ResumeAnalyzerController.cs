@@ -35,16 +35,23 @@ namespace ResumeAnalyzerAPI.Controllers
             }
         }
 
-        [HttpGet("history")]
+        [HttpGet("history/{id}")]
         public async Task<ResumeAnalysisHistory> GetResumeAnalysisHistoryAsync(int id)
         {
             return await _service.GetResumeAnalysisHistoryAsync(id);
         }
 
-        [HttpGet("history/{id}")]
+        [HttpGet("history")]
         public async Task<IEnumerable<ResumeAnalysisHistory>> GetResumeAnalysisHistoryAsync()
         {
             return await _service.GetResumeAnalysisHistoriesAsync();
+        }
+
+        [HttpPut("history")]
+        public async Task<IActionResult> UpdateResumeAnalysisHistoryAsync(ResumeAnalysisHistory updatedResumeAnalysisHistory)
+        {
+            var result = await _service.UpdateResumeAnalysisHistoryAsync(updatedResumeAnalysisHistory);
+            return Ok(result);
         }
 
         [HttpPost("test")]
