@@ -27,4 +27,12 @@ export class ResumeAnalyzerService {
     const response = await axios.get(`${this.apiUrl}/history/${id}`);
     return response.data;
   }
+
+  async updateCompanyName(id: number, companyName: string) {
+    await axios.put(`${this.apiUrl}/history`, { id, companyName });
+  }
+  
+  async deleteAnalysis(id: number) {
+    await axios.delete(`${this.apiUrl}/history/${id}`);
+  }
 }

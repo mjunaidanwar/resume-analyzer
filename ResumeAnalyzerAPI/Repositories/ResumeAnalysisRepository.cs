@@ -18,6 +18,17 @@ namespace ResumeAnalyzerAPI.Repositories
             await _context.ResumeAnalysisHistories.AddAsync(history);
         }
 
+        public async Task DeleteAsync(int id)
+        {
+            var existing = await _context.ResumeAnalysisHistories.FindAsync(id);
+            if (existing != null)
+            {
+                _context.ResumeAnalysisHistories.Remove(existing);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+
         public async Task<IEnumerable<ResumeAnalysisHistory>> GetAllAsync()
         {
             return await _context.ResumeAnalysisHistories

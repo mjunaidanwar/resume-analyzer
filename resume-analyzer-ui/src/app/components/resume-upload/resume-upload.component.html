@@ -2,14 +2,14 @@
 
   <!-- History Sidebar -->
   <div [class.w-52]="sidebarOpen" [class.w-0]="!sidebarOpen"
-       class="fixed top-0 left-0 h-full overflow-hidden bg-gray-100 dark:bg-gray-800 shadow-lg transition-all duration-300 z-50">
+    class="fixed top-0 left-0 h-full overflow-hidden bg-gray-100 dark:bg-gray-800 shadow-lg transition-all duration-300 z-50">
     <app-analysis-history (analysisSelected)="loadAnalysisFromHistory($event)"></app-analysis-history>
   </div>
 
   <!-- Toggle Button -->
   <button (click)="sidebarOpen = !sidebarOpen"
-          class="fixed top-4 transition-all duration-300 z-50 bg-gray-400 dark:bg-gray-800 text-white p-1.5 rounded-md shadow-md hover:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none cursor-pointer"
-          [ngClass]="sidebarOpen ? 'left-4' : 'left-4'">
+    class="fixed top-2 transition-all duration-300 z-50 bg-gray-400 dark:bg-gray-800 text-white p-1.5 rounded-md shadow-md hover:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none cursor-pointer"
+    [ngClass]="sidebarOpen ? 'left-3' : 'left-3'">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
     </svg>
@@ -17,76 +17,54 @@
 
   <!-- Main Content -->
   <div [class.ml-52]="sidebarOpen" [class.ml-0]="!sidebarOpen"
-       class="flex-1 transition-all duration-300 p-4 overflow-auto">
+    class="flex-1 transition-all duration-300 p-4 overflow-auto">
     <div class="max-w-screen-lg mx-auto">
       <div class="mb-8 text-center">
         <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Resume Analyzer</h2>
         <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Match your resume to job descriptions</p>
       </div>
-      
+
       <div class="space-y-6">
-        <!-- Job Description Input -->
-        <div class="w-3/4 mx-auto"
-             (dragover)="onDragOver($event)"
-             (dragleave)="onDragLeave($event)"
-             (drop)="onDrop($event)">
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Job Description</label>
-          <textarea [(ngModel)]="jobDescription"
-                    placeholder="Paste job description here..."
-                    rows="6"
-                    class="w-full px-4 py-3 border rounded-lg bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 border-gray-300 dark:border-gray-700"></textarea>
-        </div>
+        <!-- Job Description Input Box -->
+        <div class="w-3/4 mx-auto relative">
+          <textarea [(ngModel)]="jobDescription" placeholder="Paste job description here..." rows="6"
+            class="w-full px-4 py-3 pr-5 pl-5 border rounded-2xl bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 border-gray-300 dark:border-gray-700 resize-y shadow-sm"
+            (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)"></textarea>
 
-        <!-- File Upload -->
-        <div class="w-3/4 mx-auto">
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Your Resume</label>
-          <div class="border-2 border-dashed rounded-lg p-6 text-center bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700">
-            <input type="file"
-                   #fileInput
-                   (change)="onFileSelected($event)"
-                   accept=".pdf,.docx,.txt"
-                   class="hidden"
-                   id="file-upload" />
-            <label for="file-upload" class="cursor-pointer flex flex-col items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-400 dark:text-gray-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-              </svg>
-              <p class="text-gray-600 dark:text-gray-300">
-                Drag and drop your resume here, or
-                <span class="text-blue-600 dark:text-blue-400 hover:underline">browse files</span>
-              </p>
-              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                Supports PDF, DOCX, and TXT formats
-              </p>
-            </label>
-          </div>
-          <div *ngIf="selectedFileName" class="mt-2 text-sm flex items-center justify-center space-x-1">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          <!-- Upload (Plus) Button -->
+          <button type="button" (click)="fileInput.click()"
+            class="absolute left-4 bottom-4 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-full p-2 transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
             </svg>
-            <span class="text-gray-600 dark:text-gray-300">{{ selectedFileName }}</span>
-            <button (click)="fileInput.value = ''; selectedFileName = ''; resumeFile = null" class="text-gray-500 hover:text-red-500">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
+          </button>
+
+          <!-- Hidden file input -->
+          <input type="file" #fileInput (change)="onFileSelected($event)" accept=".pdf,.docx,.txt" class="hidden" />
+
+          <!-- Analyze (Arrow) Button -->
+          <button type="button" (click)="analyze()" [disabled]="loading || !resumeFile || !jobDescription.trim()"
+            class="absolute right-4 bottom-4 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white rounded-full p-2 disabled:opacity-50 transition-all">
+            <svg *ngIf="!loading" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+            <svg *ngIf="loading" class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v2a6 6 0 100 12v2a8 8 0 01-8-8z" />
+            </svg>
+          </button>
         </div>
 
-        <!-- Analyze Button -->
-        <div class="text-center">
-          <button (click)="analyze()"
-                  [disabled]="loading || !resumeFile || !jobDescription.trim()"
-                  class="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white px-6 py-3 rounded-lg disabled:opacity-50 transition-colors duration-200 cursor-pointer">
-            <span class="flex items-center justify-center space-x-2">
-              <svg *ngIf="loading" class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-              <span>{{ loading ? 'Analyzing...' : 'Analyze Resume' }}</span>
-            </span>
-          </button>
+        <div *ngIf="selectedFileName"
+          class="text-sm text-center mt-2 flex justify-center items-center gap-2 text-gray-600 dark:text-gray-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-500" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span>{{ selectedFileName }}</span>
         </div>
 
         <!-- Loading Indicator -->

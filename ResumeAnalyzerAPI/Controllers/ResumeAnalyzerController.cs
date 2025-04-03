@@ -54,6 +54,13 @@ namespace ResumeAnalyzerAPI.Controllers
             return Ok(result);
         }
 
+        [HttpDelete("history/{id}")]
+        public async Task<IActionResult> DeleteResumeAnalysisHistoryAsync(int id)
+        {
+            await _service.DeleteResumeAnalysisHistoryAsync(id);
+            return Ok();
+        }
+
         [HttpPost("test")]
         public async Task<IActionResult> TestConnection()
         {

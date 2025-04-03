@@ -62,5 +62,10 @@ namespace ResumeAnalyzerAPI.Services
         {
             return await _repository.UpdateAsync(updatedAnalysis);
         }
+
+        public async Task DeleteResumeAnalysisHistoryAsync(int id)
+        {
+            await _repository.DeleteAsync(id);
+        }
     }
 }

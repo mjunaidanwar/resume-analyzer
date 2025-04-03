@@ -8,6 +8,7 @@ namespace ResumeAnalyzerAPI.Repositories
         Task<IEnumerable<ResumeAnalysisHistory>> GetAllAsync();
         Task<ResumeAnalysisHistory> GetByIdAsync(int id);
         Task<bool> UpdateAsync(ResumeAnalysisHistory updatedAnalysis);
+        Task DeleteAsync(int id);
         Task SaveChangesAsync();
     }
 }
