@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ResumeAnalyzerAPI.Entities;
@@ -9,6 +10,7 @@ namespace ResumeAnalyzerAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [AllowAnonymous]
     public class ResumeAnalyzerController : ControllerBase
     {
         private readonly ResumeAnalyzerService _service;
@@ -19,6 +21,7 @@ namespace ResumeAnalyzerAPI.Controllers
         }
 
         [HttpPost("analyze")]
+        [AllowAnonymous]
         public async Task<IActionResult> AnalyzeResume([FromForm] ResumeAnalysisRequest request)
         {
             var resumeText = await FileHelper.ReadFileContentAsync(request.ResumeFile);
@@ -36,18 +39,21 @@ namespace ResumeAnalyzerAPI.Controllers
         }
 
         [HttpGet("history/{id}")]
+        [AllowAnonymous]
         public async Task<ResumeAnalysisHistory> GetResumeAnalysisHistoryAsync(int id)
         {
             return await _service.GetResumeAnalysisHistoryAsync(id);
         }
 
         [HttpGet("history")]
+        [AllowAnonymous]
         public async Task<IEnumerable<ResumeAnalysisHistory>> GetResumeAnalysisHistoryAsync()
         {
             return await _service.GetResumeAnalysisHistoriesAsync();
         }
 
         [HttpPut("history")]
+        [AllowAnonymous]
         public async Task<IActionResult> UpdateResumeAnalysisHistoryAsync(ResumeAnalysisHistory updatedResumeAnalysisHistory)
         {
             var result = await _service.UpdateResumeAnalysisHistoryAsync(updatedResumeAnalysisHistory);
@@ -55,6 +61,7 @@ namespace ResumeAnalyzerAPI.Controllers
         }
 
         [HttpDelete("history/{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> DeleteResumeAnalysisHistoryAsync(int id)
         {
             await _service.DeleteResumeAnalysisHistoryAsync(id);
@@ -62,6 +69,7 @@ namespace ResumeAnalyzerAPI.Controllers
         }
 
         [HttpPost("test")]
+        [AllowAnonymous]
         public async Task<IActionResult> TestConnection()
         {
             var aiResult = await _service.TestConnectionAsync();

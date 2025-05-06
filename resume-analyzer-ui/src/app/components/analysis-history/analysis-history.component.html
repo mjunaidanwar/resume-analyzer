@@ -6,7 +6,7 @@
   <ul class="py-1">
     <li 
       *ngFor="let item of history"
-      class="group relative px-4 py-2.5 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center justify-between"
+      class="group relative px-4 py-2.5 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center justify-between cursor-pointer"
       [class.bg-gray-200]="selectedAnalysisId === item.id"
       [class.dark:bg-gray-700]="selectedAnalysisId === item.id"
       [class.border-l-2]="selectedAnalysisId === item.id"
@@ -33,15 +33,15 @@
 
       <!-- 3-dot menu -->
       <div class="relative ml-2">
-        <button (click)="toggleMenu(item.id)" class="p-1 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <button (click)="toggleMenu(item.id)" class="p-1 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 cursor-pointer">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v.01M12 12v.01M12 18v.01" />
           </svg>
         </button>
 
         <div *ngIf="openMenuId === item.id" class="absolute right-0 mt-1 w-32 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-md shadow-md z-10">
-          <button (click)="startEditing(item)" class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200">Rename</button>
-          <button (click)="deleteAnalysis(item.id)" class="block w-full text-left px-4 py-2 text-sm hover:bg-red-100 dark:hover:bg-red-700 text-red-600 dark:text-red-300">Delete</button>
+          <button (click)="startEditing(item)" class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 cursor-pointer">Rename</button>
+          <button (click)="deleteAnalysis(item.id)" class="block w-full text-left px-4 py-2 text-sm hover:bg-red-100 dark:hover:bg-red-700 text-red-600 dark:text-red-300 cursor-pointer">Delete</button>
         </div>
       </div>
     </li>

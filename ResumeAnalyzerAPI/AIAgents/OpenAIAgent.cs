@@ -9,10 +9,8 @@ namespace ResumeAnalyzerAPI.AIAgents
         private readonly OpenAIClient _openAIClient;
         public OpenAIAgent(IConfiguration configuration)
         {
-            var model = configuration["OpenAI:Model"];
-            var apiKey = configuration["OpenAI:Key"];
-            _openAIClient = new OpenAIClient(apiKey);
-            _chatClient = _openAIClient.GetChatClient(model);
+            _openAIClient = new OpenAIClient("Your API Key");
+            _chatClient = _openAIClient.GetChatClient("o4-mini");
         }
 
         public async Task<string> TestConnectionAsync()
@@ -35,20 +33,29 @@ namespace ResumeAnalyzerAPI.AIAgents
         /// <returns>structured string containing the analyzed resume result</returns>
         public async Task<string> AnalyzeResumeAsync(string resumeText, string jobDescription)
         {
-            string prompt = $@"Analyze this resume text:
-            {resumeText}
+            string prompt = $@"
+                You are an AI resume‑to‑job‑description matcher.  
+                Return **only** valid JSON that matches the template below‑–no extra keys, no explanatory text.
 
-            Against this job description:
-            {jobDescription}
+                • ‘similarityScore’ **must** be an integer **0 ‑ 100** (0 = no match, 100 = perfect match).  
+                • ‘examples’ must contain **at least two** bullet points (feel free to provide more if helpful).
 
-            Return the analysis strictly in the following JSON format only:
+                Template (order and exact property names required):
 
-            {{
-            ""similarityScore"": 0,
-            ""matchingSkills"": [""skill1"", ""skill2""],
-            ""missingSkills"": [""skill3"", ""skill4""],
-            ""recommendations"": ""your recommendations here""
-            }}";
+                {{
+                ""similarityScore"": 0,
+                ""matchingSkills"": [""skill1"", ""skill2""],
+                ""missingSkills"": [""skill3"", ""skill4""],
+                ""recommendations"": ""your recommendations here"",
+                ""examples"": [""resumeBulletPoint1"", ""resumeBulletPoint2""]
+                }}
+
+                Analyze this **resume text**:
+                {resumeText}
+
+                Against this **job description**:
+                {jobDescription}
+                ";
 
             ChatCompletion completion = await _chatClient.CompleteChatAsync(
                 [

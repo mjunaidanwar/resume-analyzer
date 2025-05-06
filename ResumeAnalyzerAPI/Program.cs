@@ -22,15 +22,20 @@ builder.Services.AddScoped<ResumeAnalyzerService>();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngularApp",
-        builder => builder.WithOrigins("http://localhost:4200")
-                          .AllowAnyHeader()
-                          .AllowAnyMethod());
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
 });
 
 var app = builder.Build();
 
-app.UseCors("AllowAngularApp");
+// Required to route requests to controllers
+app.UseRouting();
+
+app.UseCors("AllowAll");
 
 // Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
@@ -40,6 +45,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseDefaultFiles(); // Serves index.html when accessing "/"
+app.UseStaticFiles();  // Serves all other files (main.js, etc.)
+
 
 app.MapControllers();
 

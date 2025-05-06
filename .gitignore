@@ -1,3 +1,45 @@
 ResumeAnalyzerAPI/appsettings.json
-ResumeAnalyzerAPI/bin/Debug/net8.0/appsettings.json
-ResumeAnalyzerAPI/bin/Debug/net8.0/appsettings.json
+ResumeAnalyzerAPI/appsettings.Development.json
+ResumeAnalyzerAPI/bin/
+ResumeAnalyzerAPI/obj/
+node_modules/
+publish/
+wwwroot/
+ResumeAnalyzer-darwin-x64
+resumeAnalyzer.db
+resumeAnalyzer.db-shm
+resumeAnalyzer.db-wal
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+.AppleDouble
+.LSOverride
+desktop.ini
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-error.log
+
+# Temporary files
+*.tmp
+*.swp
+*.bak
+*.~undo
+*.~redo
+
+# Electron build artifacts
+dist/
+out/
+
+# Electron cache
+.cache/
+ResumeAnalyzerAPI/appsettings.json
+ResumeAnalyzerAPI/appsettings.json
+ResumeAnalyzerAPI/appsettings.Development.json

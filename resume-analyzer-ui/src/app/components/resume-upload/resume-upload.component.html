@@ -7,9 +7,27 @@
   </div>
 
   <!-- Toggle Button -->
-  <button (click)="sidebarOpen = !sidebarOpen"
-    class="fixed top-2 transition-all duration-300 z-50 bg-gray-400 dark:bg-gray-800 text-white p-1.5 rounded-md shadow-md hover:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none cursor-pointer"
-    [ngClass]="sidebarOpen ? 'left-3' : 'left-3'">
+  <button (click)="sidebarOpen = !sidebarOpen" class="
+      fixed 
+      top-2 
+      left-3 
+      transition-all 
+      duration-300 
+      z-50 
+      text-black 
+      dark:text-white 
+      p-1.5 
+      rounded-md 
+      hover:bg-gray-600 
+      dark:hover:bg-gray-700 
+      focus:outline-none 
+      cursor-pointer" 
+      [ngClass]="{
+      'dark:bg-gray-800': sidebarOpen,
+      'dark:bg-gray-900': !sidebarOpen,
+      'bg-gray-100': sidebarOpen,
+      'bg-gray-50': !sidebarOpen,
+      }">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
     </svg>
@@ -27,13 +45,11 @@
       <div class="space-y-6">
         <!-- Job Description Input Box -->
         <div class="w-3/4 mx-auto relative">
-          <textarea [(ngModel)]="jobDescription" placeholder="Paste job description here..." rows="6"
-            class="w-full px-4 py-3 pr-5 pl-5 border rounded-2xl bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 border-gray-300 dark:border-gray-700 resize-y shadow-sm"
-            (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)"></textarea>
+          <textarea [(ngModel)]="jobDescription" placeholder="Paste job description here..." rows="6" class="w-full px-4 py-3 pr-5 pl-5 border rounded-3xl bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 border-gray-300 dark:border-gray-700 resize-y shadow-md focus:shadow-lg transition-shadow" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)"></textarea>
 
           <!-- Upload (Plus) Button -->
-          <button type="button" (click)="fileInput.click()"
-            class="absolute left-4 bottom-4 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-full p-2 transition-all">
+          <button type="button" (click)="fileInput.click()" title="Add Resume"
+            class="absolute left-4 bottom-4 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-full p-2 transition-all cursor-pointer">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
               stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -44,8 +60,9 @@
           <input type="file" #fileInput (change)="onFileSelected($event)" accept=".pdf,.docx,.txt" class="hidden" />
 
           <!-- Analyze (Arrow) Button -->
-          <button type="button" (click)="analyze()" [disabled]="loading || !resumeFile || !jobDescription.trim()"
-            class="absolute right-4 bottom-4 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white rounded-full p-2 disabled:opacity-50 transition-all">
+          <button type="button" (click)="analyze()" title="Analyze"
+            [disabled]="loading || !resumeFile || !jobDescription.trim()"
+            class="absolute right-4 bottom-4 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white rounded-full p-2 disabled:opacity-50 transition-all cursor-pointer">
             <svg *ngIf="!loading" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
               stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />

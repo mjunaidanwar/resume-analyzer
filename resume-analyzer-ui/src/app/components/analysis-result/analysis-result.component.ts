@@ -13,7 +13,13 @@ export class AnalysisResultComponent {
     matchingSkills: string[];
     missingSkills: string[];
     recommendations: string;
-  } = { similarityScore: 0, matchingSkills: [], missingSkills: [], recommendations: '' };
+    examples: string[];
+  } = { 
+    similarityScore: 0, 
+    matchingSkills: [], 
+    missingSkills: [], 
+    recommendations: '',
+    examples: [] };
   
   get similarityScorePercent(): number {
     return this.result.similarityScore * 100;

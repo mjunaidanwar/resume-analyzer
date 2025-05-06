@@ -6,7 +6,7 @@ import axios from 'axios';
 })
 export class ResumeAnalyzerService {
 
-  apiUrl = 'http://localhost:5267/api/ResumeAnalyzer'; // Your backend URL
+  apiUrl = 'http://localhost:5267/api/ResumeAnalyzer';
 
   constructor() { }
 

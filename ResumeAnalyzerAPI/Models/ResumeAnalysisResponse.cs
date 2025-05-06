@@ -15,5 +15,8 @@ namespace ResumeAnalyzerAPI.Models
         
         [JsonProperty("recommendations")]
         public string Recommendations { get; set; } = string.Empty;
+
+        [JsonProperty("examples")]
+        public List<string> Examples { get; set; } = new List<string>();
     }
 }

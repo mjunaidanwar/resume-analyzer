@@ -14,12 +14,13 @@ namespace ResumeAnalyzerAPI.Services
         public ResumeAnalyzerService(IConfiguration configuration, IResumeAnalysisRepository repository)
         {
             var agentSetting = configuration["AIAgent"];
-            _agent = agentSetting switch
+            /*_agent = agentSetting switch
             {
                 AIAgent.AzureOpenAI => new AzureOpenAIAgent(configuration),
                 AIAgent.OpenAI => new OpenAIAgent(configuration),
                 _ => throw new ArgumentException("Unsupported AI Agent specified", nameof(agentSetting))
-            };
+            };*/
+            _agent = new OpenAIAgent(configuration);
             _repository = repository;
         }
 
@@ -41,6 +42,7 @@ namespace ResumeAnalyzerAPI.Services
                 MatchingSkills = response.MatchingSkills,
                 MissingSkills = response.MissingSkills,
                 Recommendations = response.Recommendations,
+                Examples = response.Examples,
                 CreatedAt = DateTime.UtcNow
             };
 
