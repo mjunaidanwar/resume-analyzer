@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using ResumeAnalyzerAPI.Data;
 using ResumeAnalyzerAPI.Repositories;
 using ResumeAnalyzerAPI.Services;
+using ResumeAnalyzerAPI.Middleware; // Existing, confirmed
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,14 @@ builder.Services.AddScoped<IResumeAnalysisRepository, ResumeAnalysisRepository>(
 // Register ResumeAnalyzerService
 builder.Services.AddScoped<ResumeAnalyzerService>();
 
+// Add ProblemDetails service
+builder.Services.AddProblemDetails();
+
+// TODO: For production, restrict origins, headers, and methods to known values.
+// Example for a specific origin:
+// policy.WithOrigins("https://yourfrontenddomain.com")
+//       .WithHeaders("Content-Type", "Authorization") // Specify allowed headers
+//       .WithMethods("GET", "POST", "PUT", "DELETE"); // Specify allowed methods
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -36,6 +45,9 @@ var app = builder.Build();
 app.UseRouting();
 
 app.UseCors("AllowAll");
+
+// Register the global exception handling middleware
+app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 
 // Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())

@@ -48,9 +48,17 @@ namespace ResumeAnalyzerAPI.Repositories
             if (existingAnalysis == null)
                 return false;
 
+            // Update all relevant properties
             existingAnalysis.CompanyName = updatedAnalysis.CompanyName;
+            existingAnalysis.SimilarityScore = updatedAnalysis.SimilarityScore;
+            existingAnalysis.MatchingSkills = updatedAnalysis.MatchingSkills;
+            existingAnalysis.MissingSkills = updatedAnalysis.MissingSkills;
+            existingAnalysis.Recommendations = updatedAnalysis.Recommendations;
+            existingAnalysis.Examples = updatedAnalysis.Examples;
+            // Do NOT update existingAnalysis.CreatedAt or existingAnalysis.Id
 
-            _context.ResumeAnalysisHistories.Update(existingAnalysis);
+            // Explicitly calling Update is kept for clarity as suggested, though SaveChangesAsync would typically handle it.
+            _context.ResumeAnalysisHistories.Update(existingAnalysis); 
             await _context.SaveChangesAsync();
 
             return true;

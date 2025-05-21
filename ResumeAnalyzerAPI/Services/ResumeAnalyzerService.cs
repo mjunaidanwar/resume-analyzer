@@ -31,6 +31,17 @@ namespace ResumeAnalyzerAPI.Services
 
         public async Task<string> AnalyzeResumeAsync(string resumeText, string jobDescription)
         {
+            if (string.IsNullOrWhiteSpace(jobDescription))
+            {
+                throw new ArgumentException("Job description cannot be empty.", nameof(jobDescription));
+            }
+
+            const int maxJobDescriptionLength = 10000;
+            if (jobDescription.Length > maxJobDescriptionLength)
+            {
+                throw new ArgumentException($"Job description exceeds maximum length of {maxJobDescriptionLength} characters.", nameof(jobDescription));
+            }
+
             return await _agent.AnalyzeResumeAsync(resumeText, jobDescription);
         }
 
